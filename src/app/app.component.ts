@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+
+import { APP_TITLE } from '../configs/app.config';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'password-manager-front';
+  constructor(private titleService: Title) {
+    this.titleService.setTitle(APP_TITLE);
+  }
 }
