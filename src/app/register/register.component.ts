@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from '../users/shared/user.model';
 
 @Component({
   selector: 'app-register',
@@ -7,6 +8,11 @@ import { Component } from '@angular/core';
 })
 export class RegisterComponent {
   constructor() { }
-  model = { email: '', password: '' };
-  onSubmit(): void {}
+  model = { email: '', password: '', confirmPassword: '' };
+  registrationResult = null;
+  onSubmit(): void {
+    const email = this.model.email.trim();
+    const password = this.model.password.trim();
+    const user = new User(email, password);
+  }
 }

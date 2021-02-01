@@ -2,39 +2,63 @@
     <form (ngSubmit)="onSubmit()" #userForm="ngForm">
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="login" placeholder="name@example.com"
-                       minlength="5"
+                <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                       email="true"
                        required
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                        [(ngModel)]="model.email" name="login"
-                       #login="ngModel">
-                <label for="login">Login</label>
-                <div [hidden]="login.valid || login.pristine"
+                       #email="ngModel">
+                <label for="email">E-mail</label>
+                <div [hidden]="email.valid || email.pristine"
                      class="alert alert-danger">
-                    Login should contain at least 5 characters
+                    Enter correct e-mail example@mail.com
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" placeholder="password"
-                       minlength="6"
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
                        required
-                       [(ngModel)]="model.password" name="password"
-                       #password="ngModel">
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       [(ngModel)]="model.password"
+                       #password="ngModel"/>
                 <label for="password">Password</label>
-                <div [hidden]="password.valid || password.pristine"
-                     class="alert alert-danger">
-                    Password should contain at least 6 characters
+                <div *ngIf="password.invalid && (userForm.submitted || password.touched)" class="alert alert-danger">
+                    <div *ngIf="password.errors.required">Password is required.</div>
+                    <div *ngIf="password.errors.pattern">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.</div>
                 </div>
             </div>
         </div>
 
-        <div>
-            <button type="submit" class="btn btn-success btn-lg" [disabled]="!userForm.form.valid">Log in</button>
-            <div class="register-here">
-                <a class="link-primary" [routerLink]="['/register']">Sign up for an account</a>
+        <div class="form-group">
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                       required
+                       pattern="{{ password.value }}"
+                       [(ngModel)]="model.confirmPassword"
+                       #confirmPassword="ngModel"/>
+                <label for="confirmPassword">Confirm password</label>
+                <div *ngIf="confirmPassword.invalid && (userForm.submitted || confirmPassword.touched)" class="alert alert-danger">
+                    <div *ngIf="confirmPassword.errors.required">Confirm password is required.</div>
+                    <div *ngIf="confirmPassword.errors.pattern">Passwords does not match.</div>
+                </div>
             </div>
         </div>
+
+        <div class="buttons">
+            <a id="register-back"
+               [routerLink]="['/login']">I want to log in instead</a>
+            <button type="submit" class="btn btn-danger btn-lg" [disabled]="!userForm.form.valid">Register</button>
+        </div>
     </form>
+
+    <div class="registration-info" [hidden]="registrationResult === null">
+        <div *ngIf="registrationResult" class="alert alert-success" role="alert">
+            <i class="bi bi-check-circle"></i> Zarejestrowano pomyślnie!
+        </div>
+        <div *ngIf="!registrationResult" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-circle"></i> Nie udało się zarejestrować.
+        </div>
+    </div>
 </div>
