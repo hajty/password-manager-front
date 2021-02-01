@@ -1,0 +1,22 @@
+form {
+  margin-top: 15%;
+  margin-left: 25%;
+  margin-right:25%;
+  width: 50%;
+}
+
+.btn-success {
+  float: left;
+}
+
+.register-here {
+  float: right;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
