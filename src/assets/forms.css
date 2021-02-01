@@ -5,11 +5,22 @@ form {
   width: 50%;
 }
 
+.registration-info {
+  margin-top: 6%;
+  margin-left: 25%;
+  margin-right:25%;
+  width: 50%;
+}
+
+.bi-exclamation-circle, .bi-check-circle {
+  font-size: 150%;
+}
+
 .btn-success {
   float: left;
 }
 
-.register-here {
+.btn-danger {
   float: right;
 }
 
@@ -19,4 +30,12 @@ form {
 
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
+}
+
+#register-here {
+  float: right;
+}
+
+#register-back {
+  float: left;
 }
