@@ -54,11 +54,14 @@
     </form>
 
     <div class="registration-info" [hidden]="registrationResult === null">
-        <div *ngIf="registrationResult" class="alert alert-success" role="alert">
-            <i class="bi bi-check-circle"></i> Zarejestrowano pomyślnie!
+        <div *ngIf="registrationResult === 'success'" class="alert alert-success" role="alert">
+            <i class="bi bi-check-circle"></i> Registered successfully! Redirecting to login page in {{ timeToRedirect }}...
         </div>
-        <div *ngIf="!registrationResult" class="alert alert-danger" role="alert">
-            <i class="bi bi-exclamation-circle"></i> Nie udało się zarejestrować.
+        <div *ngIf="registrationResult === 'wrong body format'" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-circle"></i> Sorry, there was a problem with your registration. Try again later.
+        </div>
+        <div *ngIf="registrationResult === 'user exists'" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-circle"></i> User {{ model.oldEmail }} already exists.
         </div>
     </div>
 </div>
