@@ -1,3 +1,6 @@
+const DOMAIN = 'http://localhost:3000';
+const API_DOMAIN = 'http://localhost:3000/api';
 export const APP_TITLE = 'hajty\'s Password Manager';
-export const URL_REGISTER = 'http://localhost:3000/register';
-export const URL_LOGIN = 'http://localhost:3000/login';
+export const URL_REGISTER = `${DOMAIN}/register`;
+export const URL_LOGIN = `${DOMAIN}/login`;
+export const URL_PASSWORDS = `${API_DOMAIN}/passwords`;
