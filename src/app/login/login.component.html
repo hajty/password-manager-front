@@ -35,6 +35,14 @@
         <a class="link-primary" id="register-here"
            [routerLink]="['/register']">Sign up for an account</a>
     </div>
-
   </form>
+
+  <div class="login-info" [hidden]="loginResult === null">
+    <div *ngIf="loginResult === 'wrong e-mail or password'" class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-circle"></i> Wrong e-mail or password.
+    </div>
+    <div *ngIf="loginResult === 'error'" class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-circle"></i> Some error happened. Try again later.
+    </div>
+  </div>
 </div>

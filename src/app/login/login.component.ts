@@ -23,14 +23,12 @@ export class LoginComponent {
       if (resp.status === 200) {
         const token = new Token(resp.body.accessToken, resp.body.expiresIn);
         this.loginService.setToken(token);
+        console.log(this.loginService.getToken().accessToken);
         this.router.navigate(['/passwords']).then();
       }
     }, error => {
-      if (error.status === 400) {
-        console.log(400);
-      }
-      if (error.status === 401) {
-        console.log(401);
+      if (error.status === 400 || error.status === 401) {
+        this.loginResult = 'wrong e-mail or password';
       }
     });
   }
