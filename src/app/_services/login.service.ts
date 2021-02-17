@@ -9,7 +9,7 @@ import { Token } from 'src/app/users/shared/token.model';
   providedIn: 'root'
 })
 export class LoginService {
-  private token: Token;
+  private token: Token = null;
   setToken(token: Token): void {
       this.token = token;
   }
