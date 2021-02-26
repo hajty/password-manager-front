@@ -2,7 +2,7 @@
     <form (ngSubmit)="onSubmit()" #userForm="ngForm">
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                <input type="email" class="form-control" id="email" placeholder=""
                        email="true"
                        required
                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -18,7 +18,7 @@
 
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                <input type="password" class="form-control" id="password" name="password" placeholder=""
                        required
                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                        [(ngModel)]="model.password"
@@ -33,7 +33,7 @@
 
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder=""
                        required
                        pattern="{{ password.value }}"
                        [(ngModel)]="model.confirmPassword"

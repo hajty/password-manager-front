@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval, timer } from 'rxjs';
 
-import { User } from '../users/shared/user.model';
+import { User } from '../_models/shared/user.model';
 import { LoginService } from 'src/app/_services/login.service';
 
 @Component({
@@ -22,9 +22,10 @@ export class RegisterComponent {
     this.model.email = '';
   }
   onSubmit(): void {
-    const email = this.model.email.trim();
-    const password = this.model.password.trim();
-    const user = new User(email, password);
+    const user: User = {
+      email: this.model.email.trim(),
+      password: this.model.password.trim()
+    };
     this.loginService.register(user).subscribe(resp => {
       if (resp.status === 201) {
         this.registrationResult = 'success';
