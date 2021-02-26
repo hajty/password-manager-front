@@ -2,7 +2,7 @@
   <form (ngSubmit)="onSubmit()" #userForm="ngForm">
     <div class="form-group">
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="login" placeholder="name@example.com"
+        <input type="email" class="form-control" id="login" placeholder=""
                email="true"
                required
                [(ngModel)]="model.email" name="login"
@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="password" name="password" placeholder="password"
+        <input type="password" class="form-control" id="password" name="password" placeholder=""
                minlength="6"
                required
                [(ngModel)]="model.password"

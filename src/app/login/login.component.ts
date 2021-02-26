@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from '../users/shared/user.model';
+import { User } from '../_models/shared/user.model';
 import { LoginService } from 'src/app/_services/login.service';
-import { Token } from 'src/app/users/shared/token.model';
+import { Token } from 'src/app/_models/shared/token.model';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +16,16 @@ export class LoginComponent {
   loginResult = null;
   constructor(private router: Router, private loginService: LoginService) {}
   onSubmit(): void {
-    const email = this.model.email.trim();
-    const password = this.model.password.trim();
-    const user = new User(email, password);
+    const user: User = {
+      email: this.model.email.trim(),
+      password: this.model.password.trim()
+    };
     this.loginService.login(user).subscribe(resp => {
       if (resp.status === 200) {
-        const token = new Token(resp.body.accessToken, resp.body.expiresIn);
+        const token: Token = {
+          accessToken: resp.body.accessToken,
+          expiresIn: resp.body.expiresIn
+        };
         this.loginService.setToken(token);
         console.log(this.loginService.getToken().accessToken);
         this.router.navigate(['/passwords']).then();

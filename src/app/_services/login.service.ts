@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { User } from 'src/app/users/shared/user.model';
+import { User } from 'src/app/_models/shared/user.model';
 import { URL_LOGIN, URL_REGISTER } from 'src/configs/app.config';
 import { Observable } from 'rxjs';
-import { Token } from 'src/app/users/shared/token.model';
+import { Token } from 'src/app/_models/shared/token.model';
 
 @Injectable({
   providedIn: 'root'
