@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Token } from 'src/app/_models/shared/token.model';
 import { Observable, of } from 'rxjs';
-import { Password } from 'src/app/_models/shared/password.model';
+import { IPassword } from 'src/app/_models/shared/password.model';
 import { URL_PASSWORDS } from 'src/configs/app.config';
 import { catchError } from 'rxjs/operators';
 
@@ -19,11 +19,11 @@ export class PasswordsService {
           return of(result as T);
       };
   }
-  getPasswords(token: Token): Observable<Password[]> {
-    return this.http.get<Password[]>(URL_PASSWORDS, { headers: {
+  getPasswords(token: Token): Observable<IPassword[]> {
+    return this.http.get<IPassword[]>(URL_PASSWORDS, { headers: {
           authorization: token.accessToken
           }, observe: 'body' }).pipe(
-              catchError(this.handleError<Password[]>('getPasswords', []))
+              catchError(this.handleError<IPassword[]>('getPasswords', []))
     );
   }
 }
