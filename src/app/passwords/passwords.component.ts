@@ -34,6 +34,23 @@ export class PasswordsComponent implements OnInit {
       this.route.navigate(['/login']).then();
     }
   }
+  onClickEdit(password: IPassword): void {
+    const modal = document.getElementById('modalEdit');
+    const closeButton = document.getElementById('buttonClose');
+    const editService = document.getElementById('editService');
+    const editUsername = document.getElementById('editUsername');
+    const editPassword = document.getElementById('editPassword');
+
+    (editService as HTMLInputElement).value = password.service;
+    (editUsername as HTMLInputElement).value = password.username;
+    (editPassword as HTMLInputElement).value = password.password;
+    modal.style.display = 'block';
+
+    closeButton.onclick = () => {
+      modal.style.display = 'none';
+    };
+  }
+
   onClickClipboard(text: string): void {
     const textarea = document.createElement('textarea');
     textarea.style.position = 'fixed';
