@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LoginService } from 'src/app/_services/login.service';
 import { PasswordsService } from 'src/app/_services/passwords.service';
 import { Router } from '@angular/router';
 import { IPassword } from 'src/app/_models/shared/password.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-passwords',
@@ -12,14 +14,21 @@ import { IPassword } from 'src/app/_models/shared/password.model';
 export class PasswordsComponent implements OnInit {
   token = this.loginService.getToken();
   passwords: IPassword[] = [];
-  counter = 0;
   fetched = false;
+  newPassword: IPassword = {
+    service: '',
+    username: '',
+    password: ''
+  };
   constructor(
+      private modalService: NgbModal,
       private loginService: LoginService,
       private passwordsService: PasswordsService,
       private route: Router) {}
 
   ngOnInit(): void {
+    this.passwords = [];
+    this.fetched = false;
     if (this.token != null) {
       this.passwordsService.getPasswords(this.token).subscribe(
           data => {
@@ -34,21 +43,47 @@ export class PasswordsComponent implements OnInit {
       this.route.navigate(['/login']).then();
     }
   }
-  onClickEdit(password: IPassword): void {
-    const modal = document.getElementById('modalEdit');
-    const closeButton = document.getElementById('buttonClose');
-    const editService = document.getElementById('editService');
-    const editUsername = document.getElementById('editUsername');
-    const editPassword = document.getElementById('editPassword');
+  onClickAdd(newPasswordModal: TemplateRef<NgbModal>): void {
+    this.modalService.open(newPasswordModal, { centered: true })
+        .result.then((result) => {
+          if (result === 'save') {
+            this.passwordsService.postPassword(this.token, this.newPassword).subscribe(
+                response => {
+                  if ((response as HttpResponse<any>).status === 201) {
+                    this.newPassword = {
+                      service: '',
+                      username: '',
+                      password: ''
+                    };
+                    this.ngOnInit();
+                    alert('Successfully added new password!');
+                  }
+                }
+            );
+          }
+        },
+        () => {
+          this.newPassword = {
+            service: '',
+            username: '',
+            password: ''
+          };
+        });
+  }
+  onClickSave(password: IPassword): void {
+    const passwordToEdit = this.passwords.find(element => element._id === password._id);
+    passwordToEdit._isEdited = false;
+  }
 
-    (editService as HTMLInputElement).value = password.service;
-    (editUsername as HTMLInputElement).value = password.username;
-    (editPassword as HTMLInputElement).value = password.password;
-    modal.style.display = 'block';
-
-    closeButton.onclick = () => {
-      modal.style.display = 'none';
-    };
+  onClickDelete(password: IPassword): void {
+    this.passwordsService.deletePassword(this.token, password).subscribe(
+        response => {
+          if ((response as HttpResponse<any>).status === 204) {
+            alert('Successfully deleted password!');
+            this.ngOnInit();
+          }
+        }
+    );
   }
 
   onClickClipboard(text: string): void {
