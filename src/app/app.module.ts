@@ -27,7 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: '', redirectTo: '/login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'passwords', component: PasswordsComponent }
+      { path: 'passwords', component: PasswordsComponent },
     ]),
     NgbModule
   ],
