@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from 'src/app/_services/login.service';
 import { PasswordsService } from 'src/app/_services/passwords.service';
 import { Router } from '@angular/router';
@@ -12,10 +12,13 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./passwords.component.css']
 })
 export class PasswordsComponent implements OnInit {
+  @ViewChild('passwordModal') passwordModal: HTMLElement;
+  modalType = '';
+
   token = this.loginService.getToken();
   passwords: IPassword[] = [];
   fetched = false;
-  newPassword: IPassword = {
+  editPassword: IPassword = {
     service: '',
     username: '',
     password: ''
@@ -25,6 +28,14 @@ export class PasswordsComponent implements OnInit {
       private loginService: LoginService,
       private passwordsService: PasswordsService,
       private route: Router) {}
+
+  private clearPassword(): void {
+    this.editPassword = {
+      service: '',
+      username: '',
+      password: ''
+    };
+  }
 
   ngOnInit(): void {
     this.passwords = [];
@@ -43,18 +54,16 @@ export class PasswordsComponent implements OnInit {
       this.route.navigate(['/login']).then();
     }
   }
-  onClickAdd(newPasswordModal: TemplateRef<NgbModal>): void {
-    this.modalService.open(newPasswordModal, { centered: true })
+
+  onClickAdd(): void {
+    this.modalType = 'add';
+    this.modalService.open(this.passwordModal, { centered: true })
         .result.then((result) => {
           if (result === 'save') {
-            this.passwordsService.postPassword(this.token, this.newPassword).subscribe(
+            this.passwordsService.postPassword(this.token, this.editPassword).subscribe(
                 response => {
                   if ((response as HttpResponse<any>).status === 201) {
-                    this.newPassword = {
-                      service: '',
-                      username: '',
-                      password: ''
-                    };
+                    this.clearPassword();
                     this.ngOnInit();
                     alert('Successfully added new password!');
                   }
@@ -63,16 +72,34 @@ export class PasswordsComponent implements OnInit {
           }
         },
         () => {
-          this.newPassword = {
-            service: '',
-            username: '',
-            password: ''
-          };
+          this.clearPassword();
         });
   }
-  onClickSave(password: IPassword): void {
-    const passwordToEdit = this.passwords.find(element => element._id === password._id);
-    passwordToEdit._isEdited = false;
+
+  onClickEdit(password: IPassword): void {
+    this.modalType = 'edit';
+    this.editPassword.service = password.service;
+    this.editPassword.username = password.username;
+    this.editPassword.password = password.password;
+
+    this.modalService.open(this.passwordModal, { centered: true })
+        .result.then((result) => {
+          if (result === 'save') {
+            // this.passwordsService.postPassword(this.token, this.editPassword).subscribe(
+            //     response => {
+            //       if ((response as HttpResponse<any>).status === 201) {
+            //         this.clearPassword();
+            //         this.ngOnInit();
+            //         alert('Successfully added new password!');
+            //       }
+            //     }
+            // );
+            this.clearPassword();
+          }
+        },
+        () => {
+          this.clearPassword();
+        });
   }
 
   onClickDelete(password: IPassword): void {
