@@ -78,6 +78,7 @@ export class PasswordsComponent implements OnInit {
 
   onClickEdit(password: IPassword): void {
     this.modalType = 'edit';
+    this.editPassword._id = password._id;
     this.editPassword.service = password.service;
     this.editPassword.username = password.username;
     this.editPassword.password = password.password;
@@ -85,15 +86,15 @@ export class PasswordsComponent implements OnInit {
     this.modalService.open(this.passwordModal, { centered: true })
         .result.then((result) => {
           if (result === 'save') {
-            // this.passwordsService.postPassword(this.token, this.editPassword).subscribe(
-            //     response => {
-            //       if ((response as HttpResponse<any>).status === 201) {
-            //         this.clearPassword();
-            //         this.ngOnInit();
-            //         alert('Successfully added new password!');
-            //       }
-            //     }
-            // );
+            this.passwordsService.updatePassword(this.token, this.editPassword).subscribe(
+                response => {
+                  if ((response as HttpResponse<any>).status === 204) {
+                    this.clearPassword();
+                    this.ngOnInit();
+                    alert('Successfully updated new password!');
+                  }
+                }
+            );
             this.clearPassword();
           }
         },

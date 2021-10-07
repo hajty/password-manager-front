@@ -38,6 +38,19 @@ export class PasswordsService {
       );
   }
 
+  updatePassword(token: Token, password: IPassword): Observable<IPassword[] | HttpResponse<any>> {
+      const parametersToUpdate: IPassword = {
+          service: password.service,
+          username: password.username,
+          password: password.password
+      };
+      return this.http.patch(`${URL_PASSWORD}/${password._id}`, { parametersToUpdate }, { headers: {
+              authorization: token.accessToken
+          }, observe: 'response'}).pipe(
+          catchError(this.handleError<IPassword[]>('updatePassword', []))
+      );
+  }
+
   deletePassword(token: Token, password: IPassword): Observable<IPassword[] | HttpResponse<any>> {
       return this.http.delete(`${URL_PASSWORD}/${password._id}`, { headers: {
               authorization: token.accessToken
