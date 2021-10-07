@@ -13,6 +13,7 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class PasswordsComponent implements OnInit {
   @ViewChild('passwordModal') passwordModal: HTMLElement;
+  @ViewChild('timerText') timerText: HTMLSpanElement;
   modalType = '';
 
   token = this.loginService.getToken();
@@ -46,6 +47,7 @@ export class PasswordsComponent implements OnInit {
             for (const password of data) {
               this.passwords.push(password);
             }
+            // this.timerText.textContent = TODO;
             this.fetched = true;
           }
       );
