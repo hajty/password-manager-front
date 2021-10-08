@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IPassword } from 'src/app/_models/shared/password.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
+import { CountdownService } from 'src/app/_services/countdown.service';
 
 @Component({
   selector: 'app-passwords',
@@ -13,8 +14,8 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class PasswordsComponent implements OnInit {
   @ViewChild('passwordModal') passwordModal: HTMLElement;
-  @ViewChild('timerText') timerText: HTMLSpanElement;
   modalType = '';
+  timerText = '';
 
   token = this.loginService.getToken();
   passwords: IPassword[] = [];
@@ -28,6 +29,7 @@ export class PasswordsComponent implements OnInit {
       private modalService: NgbModal,
       private loginService: LoginService,
       private passwordsService: PasswordsService,
+      private countDownService: CountdownService,
       private route: Router) {}
 
   private clearPassword(): void {
@@ -45,10 +47,10 @@ export class PasswordsComponent implements OnInit {
       this.passwordsService.getPasswords(this.token).subscribe(
           data => {
             for (const password of data) {
-              this.passwords.push(password);
+                this.passwords.push(password);
             }
-            // this.timerText.textContent = TODO;
             this.fetched = true;
+            this.countDownService.countdown(this.token.expiresIn).subscribe(x => this.timerText = x );
           }
       );
     }
