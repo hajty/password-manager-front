@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval, timer } from 'rxjs';
 
 import { User } from '../_models/shared/user.model';
 import { LoginService } from 'src/app/_services/login.service';
+import { CountdownService } from 'src/app/_services/countdown.service';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +13,14 @@ import { LoginService } from 'src/app/_services/login.service';
 })
 
 export class RegisterComponent {
+  private time = 5;
   model = { oldEmail: '', email: '', password: '', confirmPassword: '' };
   registrationResult = null;
-  timeToRedirect = 5;
-  constructor(private router: Router, private loginService: LoginService) {}
+  timeToRedirect = `${this.time}`;
+  constructor(
+      private router: Router,
+      private loginService: LoginService,
+      private countdownService: CountdownService) {}
   private clearEmail(): void {
     this.model.oldEmail = this.model.email;
     this.model.email = '';
@@ -29,8 +33,12 @@ export class RegisterComponent {
     this.loginService.register(user).subscribe(resp => {
       if (resp.status === 201) {
         this.registrationResult = 'success';
-        timer(5000).subscribe(() => { this.router.navigate(['/login']).then(); });
-        interval(1000).subscribe(() => { this.timeToRedirect--; });
+        this.countdownService.countdown(this.time, 's').subscribe(
+            x => this.timeToRedirect = x,
+            () => {},
+            () => {
+              this.router.navigate(['/login']).then();
+            });
       }
     }, error => {
       if (error.status === 409 && error.error === 'User already exists') {
