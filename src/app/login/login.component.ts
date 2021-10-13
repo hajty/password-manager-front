@@ -24,10 +24,10 @@ export class LoginComponent {
       if (resp.status === 200) {
         const token: Token = {
           accessToken: resp.body.accessToken,
+          refreshToken: resp.body.refreshToken,
           expiresIn: resp.body.expiresIn
         };
         this.loginService.setToken(token);
-        console.log(this.loginService.getToken().accessToken);
         this.router.navigate(['/passwords']).then();
       }
     }, error => {
