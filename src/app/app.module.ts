@@ -25,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: 'logout', redirectTo: '/login', pathMatch: 'full'},
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'passwords', component: PasswordsComponent },
