@@ -1,48 +1,62 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
-  <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-login">
-    <div class="form-group">
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="login" placeholder=""
-               email="true"
-               required
-               [(ngModel)]="model.email" name="login"
-               #login="ngModel">
-        <label for="login">Login</label>
-        <div [hidden]="login.valid || login.pristine"
-             class="alert alert-danger">
-          Enter correct e-mail example@mail.com
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-login">
+        <div class="form-group">
+            <div class="form-floating mb-3">
+                <input
+                    type="email"
+                    class="form-control"
+                    id="login"
+                    placeholder=""
+                    email="true"
+                    required
+                    [(ngModel)]="model.email"
+                    name="login"
+                    #login="ngModel" />
+                <label for="login">Login</label>
+                <div [hidden]="login.valid || login.pristine" class="alert alert-danger">
+                    Enter correct e-mail example@mail.com
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="password" name="password" placeholder=""
-               minlength="6"
-               required
-               [(ngModel)]="model.password"
-               #password="ngModel">
-        <label for="password">Password</label>
-        <div [hidden]="password.valid || password.pristine"
-             class="alert alert-danger">
-          Password should contain at least 6 characters
+        <div class="form-group">
+            <div class="form-floating mb-3">
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder=""
+                    minlength="6"
+                    required
+                    [(ngModel)]="model.password"
+                    #password="ngModel" />
+                <label for="password">Password</label>
+                <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                    Password should contain at least 6 characters
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="buttons">
-      <button type="submit" class="btn btn-success btn-lg" [disabled]="!userForm.form.valid">Log in</button>
-        <a class="link-primary" id="register-here"
-           [routerLink]="['/register']">Sign up for an account</a>
-    </div>
-  </form>
+        <div class="buttons">
+            <button type="submit" class="btn btn-success btn-lg" [disabled]="!userForm.form.valid">
+                Log in
+            </button>
+            <a class="link-primary" id="register-here" [routerLink]="['/register']"
+                >Sign up for an account</a
+            >
+        </div>
+    </form>
 
-  <div class="login-info" [hidden]="loginResult === null">
-    <div *ngIf="loginResult === 'wrong e-mail or password'" class="alert alert-danger" role="alert">
-      <i class="bi bi-exclamation-circle"></i> Wrong e-mail or password.
+    <div class="login-info" [hidden]="loginResult === null">
+        <div
+            *ngIf="loginResult === 'wrong e-mail or password'"
+            class="alert alert-danger"
+            role="alert">
+            <i class="bi bi-exclamation-circle"></i> Wrong e-mail or password.
+        </div>
+        <div *ngIf="loginResult === 'error'" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-circle"></i> Some error happened. Try again later.
+        </div>
     </div>
-    <div *ngIf="loginResult === 'error'" class="alert alert-danger" role="alert">
-      <i class="bi bi-exclamation-circle"></i> Some error happened. Try again later.
-    </div>
-  </div>
 </div>

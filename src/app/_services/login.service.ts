@@ -6,47 +6,49 @@ import { Observable } from 'rxjs';
 import { Token } from 'src/app/_models/shared/token.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class LoginService {
     private token: Token = null;
 
     setToken(token: Token): void {
-      this.token = token;
+        this.token = token;
     }
 
     getToken(): Token {
-      return this.token;
+        return this.token;
     }
 
-    constructor(
-      private http: HttpClient
-    ) {}
+    constructor(private http: HttpClient) {}
 
     register(user: User): Observable<HttpResponse<any>> {
-      const userToAdd = {
-          user: {
-              email: user.email,
-              password: user.password
-          }
-      };
-      return this.http.post<User>(URL_REGISTER, userToAdd, { observe: 'response' });
+        const userToAdd = {
+            user: {
+                email: user.email,
+                password: user.password,
+            },
+        };
+        return this.http.post<User>(URL_REGISTER, userToAdd, {
+            observe: 'response',
+        });
     }
 
     login(user: User): Observable<HttpResponse<any>> {
-      const userToLogin = {
-          user: {
-              email: user.email,
-              password: user.password
-          }
-      };
-      return this.http.post<Token>(URL_LOGIN, userToLogin, { observe: 'response' });
+        const userToLogin = {
+            user: {
+                email: user.email,
+                password: user.password,
+            },
+        };
+        return this.http.post<Token>(URL_LOGIN, userToLogin, {
+            observe: 'response',
+        });
     }
 
     refreshToken(token: Token): Observable<Token> {
         return this.http.get<Token>(URL_TOKEN, {
             headers: { authorization: token.refreshToken },
-            observe: 'body'
+            observe: 'body',
         });
     }
 }
