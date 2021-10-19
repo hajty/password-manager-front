@@ -2,15 +2,19 @@
     <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-registration">
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder=""
-                       email="true"
-                       required
-                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                       [(ngModel)]="model.email" name="login"
-                       #email="ngModel">
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder=""
+                    email="true"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    [(ngModel)]="model.email"
+                    name="login"
+                    #email="ngModel" />
                 <label for="email">E-mail</label>
-                <div [hidden]="email.valid || email.pristine"
-                     class="alert alert-danger">
+                <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
                     Enter correct e-mail example@mail.com
                 </div>
             </div>
@@ -18,28 +22,47 @@
 
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" name="password" placeholder=""
-                       required
-                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                       [(ngModel)]="model.password"
-                       #password="ngModel"/>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder=""
+                    required
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    [(ngModel)]="model.password"
+                    #password="ngModel" />
                 <label for="password">Password</label>
-                <div *ngIf="password.invalid && (userForm.submitted || password.touched)" class="alert alert-danger">
+                <div
+                    *ngIf="password.invalid && (userForm.submitted || password.touched)"
+                    class="alert alert-danger">
                     <div *ngIf="password.errors.required">Password is required.</div>
-                    <div *ngIf="password.errors.pattern">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.</div>
+                    <div *ngIf="password.errors.pattern">
+                        Must contain at least one number and one uppercase and lowercase letter, and
+                        at least 8 or more characters.
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder=""
-                       required
-                       pattern="{{ password.value }}"
-                       [(ngModel)]="model.confirmPassword"
-                       #confirmPassword="ngModel"/>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder=""
+                    required
+                    pattern="{{ password.value }}"
+                    [(ngModel)]="model.confirmPassword"
+                    #confirmPassword="ngModel" />
                 <label for="confirmPassword">Confirm password</label>
-                <div *ngIf="confirmPassword.invalid && (userForm.submitted || confirmPassword.touched)" class="alert alert-danger">
+                <div
+                    *ngIf="
+                        confirmPassword.invalid && (userForm.submitted || confirmPassword.touched)
+                    "
+                    class="alert alert-danger">
                     <div *ngIf="confirmPassword.errors.required">Confirm password is required.</div>
                     <div *ngIf="confirmPassword.errors.pattern">Passwords does not match.</div>
                 </div>
@@ -47,18 +70,24 @@
         </div>
 
         <div class="buttons">
-            <a id="register-back"
-               [routerLink]="['/login']">I want to log in instead</a>
-            <button type="submit" class="btn btn-danger btn-lg" [disabled]="!userForm.form.valid">Register</button>
+            <a id="register-back" [routerLink]="['/login']">I want to log in instead</a>
+            <button type="submit" class="btn btn-danger btn-lg" [disabled]="!userForm.form.valid">
+                Register
+            </button>
         </div>
     </form>
 
     <div class="registration-info" [hidden]="registrationResult === null">
         <div *ngIf="registrationResult === 'success'" class="alert alert-success" role="alert">
-            <i class="bi bi-check-circle"></i> Registered successfully! Redirecting to login page in {{ timeToRedirect }}...
+            <i class="bi bi-check-circle"></i> Registered successfully! Redirecting to login page in
+            {{ timeToRedirect }}...
         </div>
-        <div *ngIf="registrationResult === 'wrong body format'" class="alert alert-danger" role="alert">
-            <i class="bi bi-exclamation-circle"></i> Sorry, there was a problem with your registration. Try again later.
+        <div
+            *ngIf="registrationResult === 'wrong body format'"
+            class="alert alert-danger"
+            role="alert">
+            <i class="bi bi-exclamation-circle"></i> Sorry, there was a problem with your
+            registration. Try again later.
         </div>
         <div *ngIf="registrationResult === 'user exists'" class="alert alert-danger" role="alert">
             <i class="bi bi-exclamation-circle"></i> User {{ model.oldEmail }} already exists.
