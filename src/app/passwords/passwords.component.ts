@@ -24,6 +24,7 @@ export class PasswordsComponent implements OnInit, AfterViewInit, AfterViewCheck
     token = this.loginService.getToken();
     passwords: IPassword[] = [];
     fetched = false;
+    storagePasswordEntered = false;
     constructor(
         private modalService: NgbModal,
         private loginService: LoginService,
@@ -41,7 +42,7 @@ export class PasswordsComponent implements OnInit, AfterViewInit, AfterViewCheck
                 for (const password of data) {
                     this.passwords.push(password);
                 }
-                // this.fetched = true;
+                this.fetched = true;
                 this.counterComponent.setTimer();
             });
         }

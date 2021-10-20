@@ -23,7 +23,7 @@ export class StoragePasswordComponent implements OnInit, AfterViewInit {
             .result.then(
                 (result) => {
                     if (result === 'enter') {
-                        this.passwordsComponent.fetched = true;
+                        this.passwordsComponent.storagePasswordEntered = true;
                     } else if (result === 'logout') {
                         this.passwordsComponent.onClickLogout();
                     }
