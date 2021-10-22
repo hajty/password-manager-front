@@ -9,6 +9,7 @@ import { StoragePasswordComponent } from 'src/app/storage-password/storage-passw
 import { EditPasswordComponent } from 'src/app/edit-password/edit-password.component';
 import { CounterComponent } from 'src/app/counter/counter.component';
 import { ToastService } from 'src/app/_services/toast.service';
+import { CryptoService } from 'src/app/_services/crypto.service';
 
 @Component({
     selector: 'app-passwords',
@@ -30,7 +31,8 @@ export class PasswordsComponent implements OnInit, AfterViewInit, AfterViewCheck
         private loginService: LoginService,
         private passwordsService: PasswordsService,
         private toastService: ToastService,
-        private route: Router
+        private route: Router,
+        private cryptoService: CryptoService
     ) {}
 
     ngOnInit(): void {
