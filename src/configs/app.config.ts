@@ -1,4 +1,4 @@
-const DOMAIN = 'https://password-manager-back.herokuapp.com/';
+const DOMAIN = 'https://password-manager-back.herokuapp.com';
 const API_DOMAIN = 'https://password-manager-back.herokuapp.com/api';
 export const APP_TITLE = "hajty's Password Manager";
 export const URL_REGISTER = `${DOMAIN}/register`;
