@@ -16,8 +16,9 @@ E-mail address of course does not need to be valid, there are no registration li
 This application has been made to communicate with my own back-end API application which you can find [here](https://github.com/hajty/password-manager-back).
 
 ### Installation
-Simply `git clone` the project and run `npm install`. You will also need Angular CLI `npm install -g @angular/cli`.  
-  You can run the project using `ng serve` which will launch the server and rebuild the app everytime you make any changes.
+Simply `git clone` the project and run `npm install`.\
+You will also need Angular CLI `npm install -g @angular/cli`.\
+You can run the project using `ng serve` which will launch the server and rebuild the app everytime you make any changes.
   
 ## Used technologies
 - Angular
