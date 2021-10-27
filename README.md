@@ -1,7 +1,7 @@
 # Password Manager
 
 ## About
-Password Manager front-end application which allows users to create account and store their passwords. Application communicates with the [back-end API](https://github.com/hajty/password-manager-back), sending and receiving GET, POST, PATCH and DELETE REST JSON requests. 
+Password Manager front-end application allows users to create account and store their passwords. Application communicates with the [back-end API](https://github.com/hajty/password-manager-back), sending GET, POST, PATCH and DELETE REST JSON requests. 
 
 User's password is hashed with Argon2 hashing function and securely stored in MongoDB database. Stored passwords informations like service name, login and password are encrypted by AES with the automatically generated key at the first user log in, which later user keeps on his own disk or any other data storage device. After next log in, user has to provide key file needed to decipher stored passwords. When the user's password or key file are gone, they cannot be restored.
 
